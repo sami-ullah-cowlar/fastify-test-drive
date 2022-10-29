@@ -1,109 +1,37 @@
-const { getItem, getItems, createItem, updateItem, deleteItem } = require(
-  "../controllers/items.controllers",
-);
+const itemController = require("../controllers/items.controllers");
+const itemSchemas = require("../schemas/items.schemas");
 
-// Options for get all items
-const Item = {
-  type: "object",
-  properties: {
-    id: { type: "number" },
-    name: { type: "string" },
-  },
+const getItems = {
+  schema: itemSchemas.getItems,
+  handler: itemController.getItems,
 };
 
-const getItemsOptions = {
-  schema: {
-    response: {
-      200: {
-        type: "object",
-        properties: {
-          success: { type: "boolean" },
-          data: {
-            type: "array",
-            items: Item,
-          },
-        },
-      },
-    },
-  },
-  handler: getItems,
+const getItem = {
+  schema: itemSchemas.getItem,
+  handler: itemController.getItem,
 };
 
-const getItemOptions = {
-  schema: {
-    response: {
-      200: {
-        type: "object",
-        properties: {
-          success: { type: "boolean" },
-          data: Item,
-        },
-      },
-    },
-  },
-  handler: getItem,
+const createItem = {
+  schema: itemSchemas.createItem,
+  handler: itemController.createItem,
 };
 
-const createItemOptions = {
-  schema: {
-    body: {
-      type: "object",
-      required: ["name"],
-      properties: {
-        name: { type: "string" },
-      },
-    },
-    response: {
-      201: {
-        type: "object",
-        properties: {
-          success: { type: "boolean" },
-          data: Item,
-        },
-      },
-    },
-  },
-  handler: createItem,
+const updateItem = {
+  schema: itemSchemas.updateItem,
+  handler: itemController.updateItem,
 };
 
-const updateItemOptions = {
-  schema: {
-    response: {
-      200: {
-        type: "object",
-        properties: {
-          success: { type: "boolean" },
-          data: Item,
-        },
-      },
-    },
-  },
-  handler: updateItem,
-};
-
-const deleteItemOptions = {
-  schema: {
-    response: {
-      200: {
-        type: "object",
-        properties: {
-          success: { type: "boolean" },
-          data: {
-            type: "string",
-          },
-        },
-      },
-    },
-  },
-  handler: deleteItem,
+const deleteItem = {
+  schema: itemSchemas.deleteItem,
+  handler: itemController.deleteItem,
 };
 
 function itemRoutes(app, options, done) {
-  app.get("/items", getItemsOptions);
-  app.post("/items", createItemOptions);
-  app.get("/items/:id", getItemOptions);
-  app.put("/items/:id", updateItemOptions);
-  app.delete("/items/:id", deleteItemOptions);
+  app.get("/items", getItems);
+  app.post("/items", createItem);
+  app.get("/items/:id", getItem);
+  app.put("/items/:id", updateItem);
+  app.delete("/items/:id", deleteItem);
 
   done();
 }
