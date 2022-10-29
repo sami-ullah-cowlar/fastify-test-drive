@@ -1,7 +1,7 @@
 {
   "name": "fastify-test-drive",
   "version": "1.0.0",
-  "description": "",
+  "description": "Fastify CRUD API For Test Drive",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/swagger": "^8.1.0",
+    "@fastify/swagger-ui": "^1.1.0",
     "fastify": "^4.9.2"
   },
   "devDependencies": {
